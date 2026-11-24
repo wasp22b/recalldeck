@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RecallDeck — does recall beat re-reading?</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>RecallDeck</h1>
+  <p class="tagline">Flashcards for AI basics. This app runs a real experiment:
+  half of all students study by <strong>recall first</strong>, half by
+  <strong>re-reading</strong>. We measure which group remembers more the next day.</p>
+</header>
+
+<main>
+  <!-- Start screen -->
+  <section id="screen-start">
+    <h2>How a session works</h2>
+    <ol>
+      <li>One session is <strong>10 cards</strong> on AI basics: agents, search, logic.</li>
+      <li>From your second session on, the first 5 cards are a <strong>retest</strong> of cards you saw before.</li>
+      <li>Your study method is picked for you by a feature flag and stays the same every visit.</li>
+    </ol>
+    <button id="btn-start" class="primary">Start a study session</button>
+    <p class="muted" id="deck-info">Deck: 60 cards &middot; agents, search, logic</p>
+  </section>
+
+  <!-- Study screen -->
+  <section id="screen-study" hidden>
+    <div class="progress"><span id="progress-text">Card 1 of 10</span>
+      <button id="btn-quit" class="link">Quit session</button>
+    </div>
+    <div class="card">
+      <div class="topic" id="card-topic"></div>
+      <h2 id="card-question"></h2>
+      <p class="hint" id="card-hint" hidden></p>
+      <button id="btn-hint" class="link">Show a hint</button>
+      <div id="card-answer" class="answer" hidden></div>
+    </div>
+    <div id="controls-recall" class="controls" hidden>
+      <p class="prompt">Do you know it? Commit before you see the answer.</p>
+      <button id="btn-know" class="primary">I know it</button>
+      <button id="btn-dont" class="secondary">I don&rsquo;t know it</button>
+    </div>
+    <div id="controls-reread" class="controls" hidden>
+      <button id="btn-next-reread" class="primary">Next card</button>
+    </div>
+    <div id="controls-next" class="controls" hidden>
+      <button id="btn-next" class="primary">Next card</button>
+    </div>
+  </section>
+
+  <!-- Done screen -->
+  <section id="screen-done" hidden>
+    <h2>Session complete</h2>
+    <p id="done-summary"></p>
+    <button id="btn-again" class="primary">Start next session</button>
+    <button id="btn-home" class="secondary">Back to start</button>
+  </section>
+</main>
+
+<footer id="debug-footer">
+  <span id="debug-text">Not in a session yet.</span>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
