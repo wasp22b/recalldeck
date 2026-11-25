@@ -21,7 +21,7 @@ def test_deck_has_60_real_cards():
     assert len({c["id"] for c in deck}) == 60
     for card in deck:
         assert card["question"] and card["answer"] and card["hint"]
-        assert card["topic"] in ("agents", "search", "logic")
+        assert card["topic"] in ("physics", "chemistry", "biology")
 
 
 def test_first_session_has_10_study_cards(client):
