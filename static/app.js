@@ -54,8 +54,10 @@ function renderCard() {
   answered = false;
   $("progress-text").textContent =
     "Card " + (index + 1) + " of " + session.cards.length;
-  $("progress-fill").style.width =
-    ((index + 1) / session.cards.length) * 100 + "%";
+  const fill = $("progress-fill");
+  if (fill) {
+    fill.style.width = ((index + 1) / session.cards.length) * 100 + "%";
+  }
   $("card-topic").textContent = card.topic + (card.kind === "retest" ? " · retest" : "");
   $("card-question").textContent = card.question;
   $("card-hint").hidden = true;
