@@ -91,6 +91,12 @@ async function submitAnswer(correct) {
     card_id: card.card_id,
     correct: correct,
   });
+  // Reread: the answer is already visible, so advance straight on.
+  // One tap moves to the next card instead of showing a second button.
+  if (correct === null) {
+    await nextCard();
+    return;
+  }
   $("card-answer").textContent = data.answer;
   $("card-answer").hidden = false;
   $("controls-recall").hidden = true;
