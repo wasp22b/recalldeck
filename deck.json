@@ -1,1 +1,422 @@
-[{"answer":"Anything that perceives its environment through sensors and acts on it through actuators. Formally, an agent is a function from percept history to action: f: P* -> A, where P* is the set of all percept sequences.","hint":"Think: sensors in, actuators out.","id":"ag-01","question":"What is an agent?","topic":"agents"},{"answer":"A rational agent picks the action that maximises its expected performance measure, given its percept history and built-in knowledge. Rational does not mean perfect: it can still fail if its percepts are incomplete or its knowledge is wrong.","hint":"Best decision given what it knows.","id":"ag-02","question":"What makes an agent rational?","topic":"agents"},{"answer":"With condition-action rules on the current percept only. It has no memory. Example: a thermostat. It fails when one percept does not tell the full state, e.g. a vacuum that cannot tell a clean room from a dirty one it already visited.","hint":"One rule, no memory.","id":"ag-03","question":"How does a simple reflex agent decide?","topic":"agents"},{"answer":"Memory. A model-based reflex agent keeps an internal model of how the world works and how its actions change it. Example: a vacuum cleaner that remembers where it already cleaned. The model can go stale if the world changes.","hint":"It keeps a map in its head.","id":"ag-04","question":"What is the one thing that separates a model-based reflex agent from a simple reflex agent?","topic":"agents"},{"answer":"It searches or plans for a sequence of actions that reaches a goal state. Example: a GPS route finder. It does not weigh how good one goal state is against another: any route that arrives is equally fine.","hint":"It plans to reach the goal.","id":"ag-05","question":"How does a goal-based agent choose actions?","topic":"agents"},{"answer":"A utility function maps each state to a number, a 'happiness score'. The agent maximises expected utility: the sum over possible outcomes of P(outcome) x U(outcome). It needs a good utility function: a bad one makes it optimise the wrong thing.","hint":"A number for every state.","id":"ag-06","question":"What is a utility function, and what does a utility-based agent maximise?","topic":"agents"},{"answer":"Learning element, critic, performance element, problem generator. The learning element changes the program, the critic judges performance against a fixed standard, the performance element chooses actions, and the problem generator suggests new actions to explore.","hint":"L, C, P, P.","id":"ag-07","question":"Name the four parts of a learning agent, in order.","topic":"agents"},{"answer":"Performance measure, Environment, Actuators, Sensors. PEAS is the standard way to specify a task environment: a complete exam answer always gives all four.","hint":"Four letters, four parts of a task.","id":"ag-08","question":"What does PEAS stand for?","topic":"agents"},{"answer":"Performance: safety, speed, comfort, profit. Environment: roads, traffic, pedestrians, passengers. Actuators: steering, accelerator, brake, horn. Sensors: cameras, GPS, speedometer, sonar.","hint":"Safety first, then the world, then hands, then eyes.","id":"ag-09","question":"Give the PEAS description of an automated taxi driver.","topic":"agents"},{"answer":"Partially observable (cannot see around corners), stochastic (other drivers are unpredictable), sequential (a bad turn now matters later), dynamic (traffic keeps moving), continuous (steering angles, speeds), multi-agent (other drivers, pedestrians).","hint":"Six pairs: observable, deterministic, episodic, static, discrete, single-agent.","id":"ag-10","question":"Classify the taxi-driver environment on the six environment properties.","topic":"agents"},{"answer":"Fully observable (the whole board is visible) and deterministic (a move has one result), but multi-agent: the opponent is the second agent.","hint":"Two yes, one no.","id":"ag-11","question":"Is chess fully observable? Is it deterministic? Is it single-agent?","topic":"agents"},{"answer":"The percept history is everything the agent has sensed so far. The agent function maps percept history to action: f: P* -> A, where P* is the set of all percept sequences.","hint":"History in, action out.","id":"ag-12","question":"What is the percept history, and what does the agent function map?","topic":"agents"},{"answer":"BFS expands the shallowest unexpanded node first. It uses a FIFO queue: the node that waited longest is expanded next. It explores the search tree level by level.","hint":"Shallowest first, queue.","id":"se-01","question":"What is breadth-first search, and what data structure does it use?","topic":"search"},{"answer":"Both O(b^d), where b is the branching factor and d is the depth of the shallowest goal. The queue at its largest holds the whole deepest level, so memory, not time, is the bottleneck.","hint":"Same big-O for time and space.","id":"se-02","question":"What are the time and space complexities of BFS?","topic":"search"},{"answer":"Only when every step costs the same. With unequal costs BFS returns the shallowest path, not the cheapest: uniform-cost search is needed then.","hint":"Equal costs only.","id":"se-03","question":"When is BFS optimal?","topic":"search"},{"answer":"DFS expands the deepest unexpanded node first. It uses a LIFO stack: the most recently generated node is expanded next. It dives down one branch to the bottom, then backtracks.","hint":"Deepest first, stack.","id":"se-04","question":"What is depth-first search, and what data structure does it use?","topic":"search"},{"answer":"Time O(b^m), where m is the maximum depth. Space O(b*m): the stack holds the current path plus the unexpanded siblings at each level. DFS is not complete in infinite-depth spaces.","hint":"Time depends on max depth, space is small.","id":"se-05","question":"What are the time and space complexities of DFS?","topic":"search"},{"answer":"The first goal DFS finds may be deep, not shallow. It returns whatever goal it reaches first on its dive, so the path is not guaranteed to be the shortest or cheapest.","hint":"First goal found, not best.","id":"se-06","question":"Why is DFS not optimal?","topic":"search"},{"answer":"Depth-limited DFS repeated with an increasing depth limit: 0, then 1, then 2, until the goal is found. It combines the completeness and optimality of BFS (equal step costs) with the low memory of DFS.","hint":"DFS again, one level deeper each time.","id":"se-07","question":"What is iterative deepening search (IDS)?","topic":"search"},{"answer":"Most nodes live at the deepest level, so re-expanding the shallow levels costs little. With b = 10, IDS does only about 11% more work than BFS.","hint":"The deepest level dominates.","id":"se-08","question":"Why is the repeated work in IDS not wasteful?","topic":"search"},{"answer":"f(n) = g(n) + h(n), where g(n) is the exact cost from the start to n, and h(n) is the estimated cost from n to the goal. A* expands the node with the lowest f(n).","hint":"Cost so far plus cost left.","id":"se-09","question":"What is the A* evaluation function f(n)?","topic":"search"},{"answer":"When h is admissible: it never overestimates the true cost to the goal. An inadmissible h breaks optimality.","hint":"Never overestimate.","id":"se-10","question":"When is A* optimal?","topic":"search"},{"answer":"Admissible: h(n) <= true cost from n to the goal. Consistent (monotone): h(n) <= cost(n -> n') + h(n') for every successor n'. A consistent heuristic is always admissible; the reverse is not true. Graph search without reopening needs consistency for optimality.","hint":"Consistency is the stronger one.","id":"se-11","question":"What is the difference between an admissible and a consistent heuristic?","topic":"search"},{"answer":"h2 dominates h1: h2(n) >= h1(n) for every state, because every misplaced tile is at least 1 Manhattan step from home. A* with h2 expands no more nodes than A* with h1.","hint":"Manhattan counts steps, not just wrong tiles.","id":"se-12","question":"For the 8-puzzle, which heuristic dominates: misplaced tiles (h1) or Manhattan distance (h2)?","topic":"search"},{"answer":"It expands the node with the lowest h(n) only: it ignores the cost so far. It is fast but neither optimal nor complete: it can be lured down a path that looks good but is expensive.","hint":"h only, no g.","id":"se-13","question":"What is greedy best-first search, and why is it not optimal?","topic":"search"},{"answer":"It expands the node with the lowest g(n): the cheapest path cost so far. It is complete and optimal for any step costs, but it explores in all directions and can be slow.","hint":"Cheapest g first.","id":"se-14","question":"What is uniform-cost search?","topic":"search"},{"answer":"Minimax is the optimal strategy for a two-player, zero-sum, perfect-information game. MAX chooses the move that maximises utility; MIN chooses the move that minimises it. Values back up the tree from terminal nodes to the root.","hint":"MAX up, MIN down.","id":"se-15","question":"What is minimax, and what do MAX and MIN do?","topic":"search"},{"answer":"alpha is the best value MAX is already guaranteed; beta is the best value MIN is already guaranteed. A branch is pruned as soon as alpha >= beta.","hint":"alpha is MAX's floor, beta is MIN's ceiling.","id":"se-16","question":"In alpha-beta pruning, what are alpha and beta?","topic":"search"},{"answer":"No. It computes exactly the same minimax value but examines fewer nodes. With good move ordering it explores O(b^(d/2)) nodes instead of O(b^d): effectively doubling the searchable depth.","hint":"Same answer, less work.","id":"se-17","question":"Does alpha-beta pruning change the minimax value?","topic":"search"},{"answer":"Pruning only happens when a good bound is found early. With the worst ordering, alpha-beta prunes nothing and costs the same as plain minimax. With random ordering it is about O(b^(3d/4)).","hint":"Best moves first.","id":"se-18","question":"Why does move ordering matter for alpha-beta?","topic":"search"},{"answer":"A local search: start from a random state, repeatedly move to the neighbouring state with the highest value, and stop when no neighbour is better. It keeps only the current state in memory: O(1) memory, and it never backtracks.","hint":"Best neighbour, repeat.","id":"se-19","question":"What is hill climbing?","topic":"search"},{"answer":"Local maxima: fix with random-restart hill climbing. Plateaus (flat areas): fix with sideways moves, with a limit. Ridges (narrow diagonal slopes): fix with stochastic hill climbing, a random uphill move.","hint":"Peak, flat, ridge.","id":"se-20","question":"Name the three problems that trap hill climbing, and one fix for each.","topic":"search"},{"answer":"It stops at the first local maximum it reaches. Whether that is the global optimum depends only on the start state, so it cannot guarantee the best solution.","hint":"First peak, not highest.","id":"se-21","question":"Why is hill climbing incomplete and not optimal?","topic":"search"},{"answer":"It sometimes accepts a worse move, with probability e^(dE/T), where dE is how much worse the move is and T is the temperature. As T cools, worse moves become rarer. With a slow enough cooling schedule it is complete in probability.","hint":"Worse moves, sometimes.","id":"se-22","question":"How does simulated annealing escape local maxima?","topic":"search"},{"answer":"Generate a candidate solution, test it against the goal, and repeat until one passes. It is the simplest search strategy: it needs a generator and a test, and it is blind, using no information about how close a candidate is.","hint":"Make one, check it, repeat.","id":"se-23","question":"What is generate and test?","topic":"search"},{"answer":"It searches AND/OR graphs, where a goal decomposes into subproblems: AND splits need every subproblem solved, OR splits offer a choice of one subproblem. Example: making tea needs hot water AND cups AND tea bags, but hot water can come from the kettle OR the microwave.","hint":"AND needs all, OR needs one.","id":"se-24","question":"What is the AO* algorithm for?","topic":"search"},{"answer":"A statement that is either true or false, e.g. P = 'it is raining'. Propositional logic has no objects, variables or quantifiers: that is what first-order logic adds.","hint":"True or false, nothing else.","id":"lo-01","question":"What is a proposition?","topic":"logic"},{"answer":"Only when P is true and Q is false. In all other rows, including when P is false, the implication is true. A false premise makes the implication vacuously true.","hint":"True premise, false conclusion.","id":"lo-02","question":"When is P => Q false?","topic":"logic"},{"answer":"P => Q is equivalent to (NOT P) OR Q. This is the implication-elimination step used when converting sentences to CNF for resolution.","hint":"Not P or Q.","id":"lo-03","question":"Rewrite P => Q using only NOT and OR.","topic":"logic"},{"answer":"NOT(P AND Q) is equivalent to (NOT P) OR (NOT Q), and NOT(P OR Q) is equivalent to (NOT P) AND (NOT Q). When you push NOT inwards, the connective flips and each part is negated.","hint":"Flip the connective, negate both sides.","id":"lo-04","question":"State De Morgan's laws.","topic":"logic"},{"answer":"Valid (a tautology): true in every model. Satisfiable: true in some model. Unsatisfiable: true in no model. Entailment KB |= a means a is true in every model where the KB is true.","hint":"All models, some models, no models.","id":"lo-05","question":"What do valid, satisfiable and unsatisfiable mean?","topic":"logic"},{"answer":"A clause with exactly one positive literal, e.g. (NOT P) OR (NOT Q) OR R, i.e. P AND Q => R. Definite clauses are the fragment that forward and backward chaining work on.","hint":"One positive literal.","id":"lo-06","question":"What is a definite (Horn) clause?","topic":"logic"},{"answer":"From (A OR B) and (NOT B OR C), infer (A OR C). The complementary literals B and NOT B cancel, and what is left is combined.","hint":"Cancel the opposite pair.","id":"lo-07","question":"State the resolution rule.","topic":"logic"},{"answer":"(1) Convert everything to CNF. (2) Add the negation of the goal as a new clause. (3) Repeatedly resolve clauses with a complementary literal. (4) Stop when you derive the empty clause: the goal is proved. Or stop when no new clauses can be produced.","hint":"CNF, negate, cancel, empty clause.","id":"lo-08","question":"What are the steps of resolution refutation?","topic":"logic"},{"answer":"Contradiction. The KB plus the negated goal is contradictory, so the goal must be true. Resolution is sound and refutation-complete for propositional logic.","hint":"Nothing left means proved.","id":"lo-09","question":"What does the empty clause mean in resolution?","topic":"logic"},{"answer":"Unit preference: resolve unit clauses (single literals) first: they shrink clauses fastest. Set-of-support: at least one parent of every resolvent must come from the negated goal or its descendants, so the search stays goal-directed.","hint":"Short clauses first, goal-focused.","id":"lo-10","question":"What are the unit-preference and set-of-support strategies?","topic":"logic"},{"answer":"Objects and relations: constants (John), variables (x), predicates (Knows(x, y)), functions (FatherOf(x)), and quantifiers: FOR ALL and THERE EXISTS. Example: FOR ALL x (Human(x) => Mortal(x)).","hint":"Objects, predicates, quantifiers.","id":"lo-11","question":"What does first-order logic add over propositional logic?","topic":"logic"},{"answer":"Finding a substitution, a set of variable bindings like {x / Mary}, that makes two expressions identical. Unify(Knows(John, x), Knows(John, Mary)) gives {x / Mary}.","hint":"Fill the blanks so both sides match.","id":"lo-12","question":"What is unification?","topic":"logic"},{"answer":"The simplest substitution that makes two expressions identical: it binds only what it must, and no more. The MGU is unique up to variable renaming.","hint":"Bind only what is forced.","id":"lo-13","question":"What is the most general unifier (MGU)?","topic":"logic"},{"answer":"A variable cannot bind to a term containing itself: Unify(Q(x), Q(f(x))) fails, because x would have to equal f(x), an infinite term. Prolog omits the occurs check for speed, which is logically unsound.","hint":"x cannot equal f(x).","id":"lo-14","question":"What is the occurs check, and why does it matter?","topic":"logic"},{"answer":"Rename so the two clauses share no variable names, or a binding in one clause will wrongly affect the other.","hint":"Same name, different meaning.","id":"lo-15","question":"Why must you standardise variables apart before unifying two clauses?","topic":"logic"},{"answer":"First unify the complementary literals (same predicate, one negated), apply the MGU to both clauses, then resolve exactly as in propositional logic. The MGU lets one general rule apply to many specific facts.","hint":"Unify first, then resolve.","id":"lo-16","question":"How does FOL resolution differ from propositional resolution?","topic":"logic"},{"answer":"If the query is entailed, resolution will eventually find the proof. If it is not entailed, there is no proof to find, and the procedure may generate new clauses forever. So it is refutation-complete but not decidable.","hint":"No proof to find means no stop.","id":"lo-17","question":"Why is resolution only semi-decidable for first-order logic?","topic":"logic"},{"answer":"The first: everyone loves someone, possibly a different person each. The second: one single person is loved by everyone. The second is much stronger: it implies the first, but not the other way around.","hint":"Order of quantifiers changes the meaning.","id":"lo-18","question":"What is the difference between FOR ALL x THERE EXISTS y Loves(x, y) and THERE EXISTS y FOR ALL x Loves(x, y)?","topic":"logic"},{"answer":"Stench (Wumpus adjacent), Breeze (pit adjacent), Glitter (gold here), Bump (hit a wall), Scream (the Wumpus is dead). Percepts are local only: a breeze tells you about adjacent squares, not the whole cave.","hint":"Stench, breeze, glitter, bump, scream.","id":"lo-19","question":"What are the five percepts of the Wumpus World agent?","topic":"logic"},{"answer":"+1000 for grabbing the gold and climbing out, -1000 for dying, -1 for every step, -10 for firing the single arrow. The -1 per step means dawdling costs points: take the shortest safe route.","hint":"Gold 1000, death -1000, step -1.","id":"lo-20","question":"What is the Wumpus World scoring rule?","topic":"logic"},{"answer":"It is a knowledge-based agent: percept, then tell the KB, then ask the KB what is safe (Ask(KB, Safe(square))), then act. Safety is proved by inference, never guessed. The absence of a percept is also information: no breeze means no pit nearby.","hint":"Percept, KB, inference, action.","id":"lo-21","question":"How does the Wumpus agent decide its next action?","topic":"logic"},{"answer":"No breeze at (1,2) gives NOT Pit(2,2); no stench at (2,1) gives NOT Wumpus(2,2). Both facts come from inference on percepts: the agent never saw the pit or the Wumpus.","hint":"Two absences prove two facts.","id":"lo-22","question":"In the canonical Wumpus trace, how is square (2,2) proved safe?","topic":"logic"},{"answer":"Start from the known facts and repeatedly apply rules whose premises are satisfied, adding new facts until the goal is derived, or no new facts appear. It is data-driven and works on definite clauses.","hint":"Facts forward to the goal.","id":"lo-23","question":"What is forward chaining?","topic":"logic"},{"answer":"Start from the goal and work backwards: find a rule whose conclusion matches the goal, then try to prove its premises as new subgoals. It is goal-driven and asks only for the facts it needs.","hint":"Goal backwards to the facts.","id":"lo-24","question":"What is backward chaining?","topic":"logic"}]
+[
+  {
+    "id": "ph-01",
+    "question": "What is the SI unit of force?",
+    "answer": "Newton (N).",
+    "hint": "Named after Isaac Newton.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-02",
+    "question": "What is the speed of light in a vacuum?",
+    "answer": "About 3 x 10^8 metres per second (300,000 kilometres per second).",
+    "hint": "The fastest speed known.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-03",
+    "question": "What does a thermometer measure?",
+    "answer": "Temperature.",
+    "hint": "Hot or cold.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-04",
+    "question": "What is the SI unit of electric current?",
+    "answer": "Ampere (A).",
+    "hint": "Named after Andre-Marie Ampere.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-05",
+    "question": "What force pulls objects towards the Earth?",
+    "answer": "Gravity (the gravitational force).",
+    "hint": "Why things fall down.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-06",
+    "question": "What is the SI unit of energy?",
+    "answer": "Joule (J).",
+    "hint": "Also the unit of work.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-07",
+    "question": "Which mirror is used in a car's rear-view mirror?",
+    "answer": "A convex mirror.",
+    "hint": "It gives a wider view.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-08",
+    "question": "What is the SI unit of frequency?",
+    "answer": "Hertz (Hz).",
+    "hint": "Cycles per second.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-09",
+    "question": "Which type of lens is used in a magnifying glass?",
+    "answer": "A convex lens.",
+    "hint": "Thicker in the middle.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-10",
+    "question": "Which law says every action has an equal and opposite reaction?",
+    "answer": "Newton's third law of motion.",
+    "hint": "Action and reaction.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-11",
+    "question": "What is the speed of sound in air at about 20 degrees Celsius?",
+    "answer": "About 343 metres per second.",
+    "hint": "Much slower than light.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-12",
+    "question": "What do we call a material that does not let electricity pass through it?",
+    "answer": "An insulator.",
+    "hint": "Rubber and plastic are examples.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-13",
+    "question": "What is the SI unit of power?",
+    "answer": "Watt (W).",
+    "hint": "Named after James Watt.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-14",
+    "question": "What is the force that opposes motion between two surfaces in contact?",
+    "answer": "Friction.",
+    "hint": "It makes things slow down.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-15",
+    "question": "What does an ammeter measure?",
+    "answer": "Electric current.",
+    "hint": "It is connected in series in a circuit.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-16",
+    "question": "What is the SI unit of pressure?",
+    "answer": "Pascal (Pa).",
+    "hint": "Force per unit area.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-17",
+    "question": "Which colour of light bends the most when it passes through a prism?",
+    "answer": "Violet.",
+    "hint": "It has the shortest wavelength in visible light.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-18",
+    "question": "What is the energy of a body due to its motion called?",
+    "answer": "Kinetic energy.",
+    "hint": "A moving ball has it.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-19",
+    "question": "What instrument measures atmospheric pressure?",
+    "answer": "A barometer.",
+    "hint": "Weather forecasts use it.",
+    "topic": "physics"
+  },
+  {
+    "id": "ph-20",
+    "question": "What is the SI unit of mass?",
+    "answer": "Kilogram (kg).",
+    "hint": "The base unit of mass.",
+    "topic": "physics"
+  },
+  {
+    "id": "ch-01",
+    "question": "What is the chemical symbol for water?",
+    "answer": "H2O.",
+    "hint": "Two hydrogens, one oxygen.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-02",
+    "question": "What is the chemical symbol for gold?",
+    "answer": "Au.",
+    "hint": "From the Latin word aurum.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-03",
+    "question": "Which gas do plants absorb from the air for photosynthesis?",
+    "answer": "Carbon dioxide (CO2).",
+    "hint": "We breathe it out.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-04",
+    "question": "What is the pH of pure water at 25 degrees Celsius?",
+    "answer": "7 (neutral).",
+    "hint": "Neither acidic nor basic.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-05",
+    "question": "Which acid is present in vinegar?",
+    "answer": "Acetic acid.",
+    "hint": "It gives vinegar its sour smell.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-06",
+    "question": "What is the chemical symbol for sodium?",
+    "answer": "Na.",
+    "hint": "From the Latin word natrium.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-07",
+    "question": "Which gas is released when an acid reacts with a metal?",
+    "answer": "Hydrogen gas.",
+    "hint": "It burns with a pop sound.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-08",
+    "question": "What is the atomic number of carbon?",
+    "answer": "6.",
+    "hint": "It has 6 protons.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-09",
+    "question": "What is the main component of natural gas?",
+    "answer": "Methane (CH4).",
+    "hint": "The simplest hydrocarbon.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-10",
+    "question": "Which metal is liquid at room temperature?",
+    "answer": "Mercury.",
+    "hint": "Used in old thermometers.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-11",
+    "question": "What is the chemical formula of common salt?",
+    "answer": "Sodium chloride (NaCl).",
+    "hint": "Sodium + chlorine.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-12",
+    "question": "What type of reaction absorbs heat from its surroundings?",
+    "answer": "An endothermic reaction.",
+    "hint": "The opposite of exothermic.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-13",
+    "question": "Which gas do we need to breathe to live?",
+    "answer": "Oxygen (O2).",
+    "hint": "It makes up about 21% of air.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-14",
+    "question": "What is the chemical symbol for iron?",
+    "answer": "Fe.",
+    "hint": "From the Latin word ferrum.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-15",
+    "question": "Which acid is found in the human stomach?",
+    "answer": "Hydrochloric acid (HCl).",
+    "hint": "It helps digest food.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-16",
+    "question": "What do we call a substance that speeds up a chemical reaction without being used up?",
+    "answer": "A catalyst.",
+    "hint": "Enzymes are biological examples.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-17",
+    "question": "How many electrons does a neutral oxygen atom have?",
+    "answer": "8.",
+    "hint": "The same as its atomic number.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-18",
+    "question": "What is the chemical formula of carbon dioxide?",
+    "answer": "CO2.",
+    "hint": "One carbon, two oxygens.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-19",
+    "question": "Which element has the chemical symbol O?",
+    "answer": "Oxygen.",
+    "hint": "We breathe it in.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "ch-20",
+    "question": "What is formed when an acid reacts with a base?",
+    "answer": "Salt and water (neutralisation).",
+    "hint": "The pH moves towards 7.",
+    "topic": "chemistry"
+  },
+  {
+    "id": "bi-01",
+    "question": "What is the powerhouse of the cell?",
+    "answer": "Mitochondria.",
+    "hint": "It releases energy from food.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-02",
+    "question": "What pigment in leaves traps sunlight for photosynthesis?",
+    "answer": "Chlorophyll.",
+    "hint": "It makes leaves green.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-03",
+    "question": "How many chambers does the human heart have?",
+    "answer": "Four (two atria and two ventricles).",
+    "hint": "Two on each side.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-04",
+    "question": "What is the basic unit of life?",
+    "answer": "The cell.",
+    "hint": "All living things are made of them.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-05",
+    "question": "Which gas do plants release during photosynthesis?",
+    "answer": "Oxygen.",
+    "hint": "We breathe it in.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-06",
+    "question": "Which organ in the human body produces insulin?",
+    "answer": "The pancreas.",
+    "hint": "Insulin controls blood sugar.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-07",
+    "question": "What is the process by which plants make food using sunlight?",
+    "answer": "Photosynthesis.",
+    "hint": "Sun + water + carbon dioxide.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-08",
+    "question": "How many bones are there in an adult human body?",
+    "answer": "206.",
+    "hint": "Babies are born with about 300.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-09",
+    "question": "What is the largest organ of the human body?",
+    "answer": "The skin.",
+    "hint": "It covers the whole body.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-10",
+    "question": "Which part of the cell contains the genetic material (DNA)?",
+    "answer": "The nucleus.",
+    "hint": "The control centre of the cell.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-11",
+    "question": "What do we call animals that eat only plants?",
+    "answer": "Herbivores.",
+    "hint": "Cows and goats are examples.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-12",
+    "question": "Which blood cells carry oxygen around the body?",
+    "answer": "Red blood cells.",
+    "hint": "They contain haemoglobin.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-13",
+    "question": "Which part of a plant carries water from the roots to the leaves?",
+    "answer": "Xylem.",
+    "hint": "Part of the transport tissue.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-14",
+    "question": "What is the process of breaking down food into simpler substances called?",
+    "answer": "Digestion.",
+    "hint": "It starts in the mouth.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-15",
+    "question": "Which vitamin does sunlight help our skin to make?",
+    "answer": "Vitamin D.",
+    "hint": "It keeps bones strong.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-16",
+    "question": "What are the tiny air sacs in the lungs where gas exchange happens?",
+    "answer": "Alveoli.",
+    "hint": "At the end of the smallest air tubes.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-17",
+    "question": "How many pairs of chromosomes do humans have?",
+    "answer": "23 pairs (46 in total).",
+    "hint": "Half come from each parent.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-18",
+    "question": "What is the main function of white blood cells?",
+    "answer": "To fight infection and disease.",
+    "hint": "The body's defence cells.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-19",
+    "question": "Which organ filters blood and makes urine?",
+    "answer": "The kidney.",
+    "hint": "Humans have two of them.",
+    "topic": "biology"
+  },
+  {
+    "id": "bi-20",
+    "question": "What is the process by which a caterpillar changes into a butterfly called?",
+    "answer": "Metamorphosis.",
+    "hint": "A complete change of form.",
+    "topic": "biology"
+  }
+]

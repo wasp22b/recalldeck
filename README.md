@@ -9,11 +9,9 @@ raises next-session retention vs re-reading, without raising abandonment.
 
 ## What it is
 
-- 60 flashcards on AI basics — agents (PEAS, agent types), search (BFS, DFS,
-  iterative deepening, A*, minimax, alpha-beta, hill climbing), logic
-  (propositional logic, FOL, resolution, unification, Wumpus world) — written
-  from the author's Semester 1 MSc AI study notes. The deck is the content
-  moat: real cards a first-semester MSc AI student would actually use.
+- 60 flashcards on simple general science — physics, chemistry and
+  biology at school level (Class 8–10). One clear fact per card, written
+  in simple language.
 - One session is 10 cards. From the second session on, the first 5 cards are
   a **retest** of cards seen in earlier sessions; the other 5 are new.
 - Retest cards are always shown recall-style (question first, commit, then
@@ -113,7 +111,7 @@ app/
   main.py              FastAPI app + endpoints
   database.py          SQLite schema + queries
   flagsmith_client.py  Flagsmith SDK wrapper (local evaluation + fallback)
-  deck.json            60 flashcards (agents / search / logic)
+  deck.json            60 flashcards (physics / chemistry / biology)
   static/              vanilla JS single-page frontend
   scripts/simulate_traffic.py
   tests/               pytest suite
